@@ -9,6 +9,7 @@ export default function HistoryPage() {
   const [savedRoutes, setSavedRoutes] = useState<SavedRoute[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [expandedId, setExpandedId] = useState<string | null>(null);
 
   useEffect(() => {
     async function fetchHistory() {
@@ -58,6 +59,10 @@ export default function HistoryPage() {
     );
   }
 
+  const toggleExpand = (id: string) => {
+    setExpandedId(expandedId === id ? null : id);
+  };
+
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold text-gray-800 mb-6">
@@ -83,26 +88,60 @@ export default function HistoryPage() {
         </div>
       ) : (
         savedRoutes.map((saved) => (
-          <div key={saved._id} className="mb-10">
-            <div className="bg-gray-50 rounded-xl p-4 mb-4">
+          <div key={saved._id} className="mb-4">
+            <button
+              onClick={() => toggleExpand(saved._id)}
+              className="w-full bg-white rounded-xl p-5 shadow-md hover:shadow-lg transition-all text-right"
+            >
               <div className="flex items-center justify-between">
-                <h2 className="text-lg font-bold text-gray-800">
-                  {saved.city}, {saved.country}
-                </h2>
-                <div className="flex items-center gap-4 text-sm text-gray-500">
-                  <span>
-                    {saved.tripType === "trek" ? "טרק רגלי" : "אופניים"}
+                <div className="flex items-center gap-3">
+                  <span className="text-2xl">
+                    {saved.tripType === "trek" ? "🥾" : "🚴"}
                   </span>
-                  <span>{saved.durationDays} ימים</span>
-                  <span>
-                    {new Date(saved.approvedAt).toLocaleDateString("he-IL")}
-                  </span>
+                  <div>
+                    <h2 className="text-lg font-bold text-gray-800">
+                      {saved.city}, {saved.country}
+                    </h2>
+                    <div className="flex items-center gap-3 text-sm text-gray-500 mt-1">
+                      <span>
+                        {saved.tripType === "trek" ? "טרק רגלי" : "אופניים"}
+                      </span>
+                      <span>•</span>
+                      <span>{saved.durationDays} ימים</span>
+                      <span>•</span>
+                      <span>{saved.routes.length} מסלולים</span>
+                      <span>•</span>
+                      <span>
+                        {new Date(saved.approvedAt).toLocaleDateString("he-IL")}
+                      </span>
+                    </div>
+                  </div>
                 </div>
+                <svg
+                  className={`w-5 h-5 text-gray-400 transition-transform ${
+                    expandedId === saved._id ? "rotate-180" : ""
+                  }`}
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19 9l-7 7-7-7"
+                  />
+                </svg>
               </div>
-            </div>
-            {saved.routes.map((route, i) => (
-              <RouteCard key={i} route={route} showWeather={true} />
-            ))}
+            </button>
+
+            {expandedId === saved._id && (
+              <div className="mt-4 pr-4">
+                {saved.routes.map((route, i) => (
+                  <RouteCard key={i} route={route} showWeather={true} />
+                ))}
+              </div>
+            )}
           </div>
         ))
       )}
