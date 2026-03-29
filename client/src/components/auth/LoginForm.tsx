@@ -21,7 +21,7 @@ export default function LoginForm() {
     try {
       await login(email, password);
       const from = searchParams.get("from") || "/plan";
-      router.push(from);
+      window.location.href = from;
     } catch (err: any) {
       setError(err.message || "שגיאה בהתחברות");
     } finally {

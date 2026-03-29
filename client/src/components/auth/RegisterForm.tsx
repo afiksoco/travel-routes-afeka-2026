@@ -20,7 +20,7 @@ export default function RegisterForm() {
     setLoading(true);
     try {
       await register(email, name, password);
-      router.push("/plan");
+      window.location.href = "/plan";
     } catch (err: any) {
       setError(err.message || "שגיאה בהרשמה");
     } finally {
