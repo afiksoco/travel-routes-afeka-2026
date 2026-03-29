@@ -6,8 +6,6 @@ COPY package*.json ./
 RUN npm ci
 
 COPY . .
-RUN npm run build
-
-EXPOSE 4000
+RUN npx tsc
 
 CMD ["node", "dist/index.js"]

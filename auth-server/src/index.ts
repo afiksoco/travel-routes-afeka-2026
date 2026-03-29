@@ -27,7 +27,7 @@ app.get("/health", (_req, res) => {
 
 connectDB()
   .then(() => {
-    app.listen(PORT, () => {
+    app.listen(Number(PORT), "0.0.0.0", () => {
       console.log(`Auth server running on port ${PORT}`);
     });
   })
