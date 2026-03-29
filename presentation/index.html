@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>מסלול טיולים אפקה 2026 - מצגת</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', Tahoma, Arial, sans-serif; background: #0f172a; color: #e2e8f0; overflow: hidden; }
+    .slide { display: none; width: 100vw; height: 100vh; padding: 60px 80px; flex-direction: column; justify-content: center; }
+    .slide.active { display: flex; }
+    .slide h1 { font-size: 3em; color: #60a5fa; margin-bottom: 20px; }
+    .slide h2 { font-size: 2em; color: #93c5fd; margin-bottom: 30px; }
+    .slide h3 { font-size: 1.4em; color: #60a5fa; margin-bottom: 10px; }
+    .slide p, .slide li { font-size: 1.3em; line-height: 1.8; color: #cbd5e1; }
+    .slide ul { list-style: none; padding: 0; }
+    .slide ul li::before { content: "◆ "; color: #60a5fa; }
+    .slide .subtitle { font-size: 1.5em; color: #94a3b8; margin-bottom: 30px; }
+    .slide .big-emoji { font-size: 4em; margin-bottom: 20px; }
+    .slide-number { position: fixed; bottom: 20px; left: 30px; color: #475569; font-size: 0.9em; }
+    .nav-hint { position: fixed; bottom: 20px; right: 30px; color: #475569; font-size: 0.9em; }
+    .code-block { background: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 20px 30px; margin: 15px 0; font-family: 'Courier New', monospace; font-size: 1em; direction: ltr; text-align: left; color: #a5f3fc; overflow-x: auto; }
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 20px; }
+    .card { background: #1e293b; border-radius: 16px; padding: 30px; border: 1px solid #334155; }
+    .card h3 { margin-bottom: 15px; }
+    .highlight { color: #fbbf24; }
+    .arch-box { background: #1e293b; border: 2px solid #3b82f6; border-radius: 12px; padding: 15px 25px; text-align: center; font-size: 1.1em; }
+    .arch-arrow { color: #3b82f6; font-size: 2em; text-align: center; margin: 10px 0; }
+    .arch-grid { display: grid; grid-template-columns: 1fr auto 1fr; gap: 20px; align-items: center; margin-top: 30px; }
+    .tag { display: inline-block; background: #1e3a5f; color: #60a5fa; padding: 4px 12px; border-radius: 20px; font-size: 0.85em; margin: 3px; }
+  </style>
+</head>
+<body>
+
+<!-- Slide 1: Title -->
+<div class="slide active" id="slide-1">
+  <div class="big-emoji">🗺️</div>
+  <h1>מסלול טיולים אפקה 2026</h1>
+  <p class="subtitle">תכנון מסלולי טיולים חכם עם בינה מלאכותית</p>
+  <br />
+  <p><strong>שם המגיש:</strong> <span class="highlight">[השם שלך]</span></p>
+  <p><strong>GitHub:</strong> <span class="highlight">[קישור ל-GitHub]</span></p>
+  <p><strong>כתובת בענן:</strong> <span class="highlight">[כתובת Vercel]</span></p>
+</div>
+
+<!-- Slide 2: Known Bugs -->
+<div class="slide" id="slide-2">
+  <h1>Known Bugs & בעיות ידועות</h1>
+  <br />
+  <ul>
+    <li>קואורדינטות GPS מ-AI הן קירוב ולא מדויקות ב-100% — מסלולים עשויים לסטות מעט מנתיבים אמיתיים</li>
+    <li>תחזית מזג אוויר מוגבלת ל-5 ימים קדימה (מגבלת OpenWeatherMap free tier)</li>
+    <li>תמונות מ-Unsplash לא תמיד מתאימות למסלול הספציפי</li>
+    <li>Silent refresh — אם הטאב לא פעיל ל-7+ ימים, צריך להתחבר מחדש</li>
+  </ul>
+</div>
+
+<!-- Slide 3: Architecture -->
+<div class="slide" id="slide-3">
+  <h1>ארכיטקטורה</h1>
+  <div class="arch-grid">
+    <div>
+      <div class="arch-box">
+        <strong>🖥️ Client (Next.js)</strong><br />
+        Port 3000 / Vercel<br /><br />
+        <span class="tag">React</span>
+        <span class="tag">Tailwind</span>
+        <span class="tag">Leaflet</span>
+        <span class="tag">API Routes</span>
+      </div>
+    </div>
+    <div style="text-align:center;">
+      <div class="arch-arrow">⟵ JWT ⟶</div>
+    </div>
+    <div>
+      <div class="arch-box">
+        <strong>🔐 Auth Server (Express)</strong><br />
+        Port 4000 / Railway<br /><br />
+        <span class="tag">bcrypt</span>
+        <span class="tag">JWT</span>
+        <span class="tag">Mongoose</span>
+      </div>
+    </div>
+  </div>
+  <br />
+  <div class="two-col">
+    <div class="arch-box">
+      <strong>🤖 Google Gemini API</strong><br />
+      יצירת מסלולי טיול
+    </div>
+    <div class="arch-box">
+      <strong>🗄️ MongoDB Atlas</strong><br />
+      Users + Routes
+    </div>
+  </div>
+  <br />
+  <div class="two-col">
+    <div class="arch-box">
+      <strong>🌤️ OpenWeatherMap</strong><br />
+      תחזית מזג אוויר
+    </div>
+    <div class="arch-box">
+      <strong>📷 Unsplash</strong><br />
+      תמונות יעדים
+    </div>
+  </div>
+</div>
+
+<!-- Slide 4: Auth Flow -->
+<div class="slide" id="slide-4">
+  <h1>זרימת הרשאות (JWT)</h1>
+  <br />
+  <ul>
+    <li>הרשמה/התחברות → Express מנפיק <strong>Access Token</strong> (24 שעות) + <strong>Refresh Token</strong> (7 ימים)</li>
+    <li>סיסמאות מוצפנות עם <strong>bcrypt</strong> + salt (12 rounds)</li>
+    <li>JWT מכיל: <code class="highlight">{ sub: userId, name: studentName }</code></li>
+    <li>Next.js Middleware מאמת טוקן בכל כניסה לדף מוגן</li>
+    <li>רענון שקוף (Silent Refresh) — המשתמש לא מרגיש</li>
+    <li>Refresh Token מסובב (rotated) בכל רענון — אבטחה מוגברת</li>
+  </ul>
+</div>
+
+<!-- Slide 5: Route Generation -->
+<div class="slide" id="slide-5">
+  <h1>יצירת מסלולים עם AI</h1>
+  <br />
+  <div class="two-col">
+    <div class="card">
+      <h3>🚴 אופניים</h3>
+      <ul>
+        <li>2-3 ימים רצופים</li>
+        <li>30-70 ק"מ ליום</li>
+        <li>מעיר לעיר</li>
+        <li>על כבישים אמיתיים</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>🥾 טרק רגלי</h3>
+      <ul>
+        <li>1-3 מסלולים מעגליים</li>
+        <li>5-10 ק"מ כל אחד</li>
+        <li>מתחיל ומסתיים באותה נקודה</li>
+        <li>על שבילים אמיתיים</li>
+      </ul>
+    </div>
+  </div>
+  <br />
+  <p>Claude API מחזיר JSON מובנה עם קואורדינטות GPS → מוצג על מפת Leaflet</p>
+</div>
+
+<!-- Slide 6: Code Highlight - Claude Prompt -->
+<div class="slide" id="slide-6">
+  <h1>דגימת קוד — Gemini API</h1>
+  <div class="code-block">
+const model = genAI.getGenerativeModel({<br />
+&nbsp;&nbsp;model: "gemini-2.0-flash",<br />
+&nbsp;&nbsp;systemInstruction: "You are a professional travel<br />
+&nbsp;&nbsp;&nbsp;&nbsp;route planner...",<br />
+});<br /><br />
+const result = await model.generateContent(prompt);<br />
+const jsonText = result.response.text();<br /><br />
+// Parse structured JSON with GPS coordinates<br />
+const parsed = JSON.parse(jsonText);<br />
+const routes: RouteSegment[] = parsed.routes.map(...)
+  </div>
+  <p>הפרומפט מבקש JSON מובנה עם polyline (20-40 נקודות) שעוקב אחרי כבישים/שבילים אמיתיים</p>
+</div>
+
+<!-- Slide 7: Code Highlight - Middleware -->
+<div class="slide" id="slide-7">
+  <h1>דגימת קוד — JWT Middleware</h1>
+  <div class="code-block">
+// middleware.ts (Next.js)<br />
+export function middleware(request: NextRequest) {<br />
+&nbsp;&nbsp;const token = request.cookies.get("access_token")?.value;<br />
+&nbsp;&nbsp;if (!token) {<br />
+&nbsp;&nbsp;&nbsp;&nbsp;return NextResponse.redirect(new URL("/login", request.url));<br />
+&nbsp;&nbsp;}<br />
+&nbsp;&nbsp;// Decode JWT, check expiry<br />
+&nbsp;&nbsp;const payload = JSON.parse(atob(token.split(".")[1]));<br />
+&nbsp;&nbsp;if (payload.exp * 1000 < Date.now()) {<br />
+&nbsp;&nbsp;&nbsp;&nbsp;// Redirect to login for re-auth<br />
+&nbsp;&nbsp;}<br />
+}<br /><br />
+export const config = {<br />
+&nbsp;&nbsp;matcher: ["/plan/:path*", "/history/:path*"],<br />
+};
+  </div>
+</div>
+
+<!-- Slide 8: Code Highlight - Leaflet -->
+<div class="slide" id="slide-8">
+  <h1>דגימת קוד — Leaflet Map</h1>
+  <div class="code-block">
+// Dynamic import - no SSR (Leaflet needs window)<br />
+const MapViewInner = dynamic(() => import("./MapViewInner"),<br />
+&nbsp;&nbsp;{ ssr: false });<br /><br />
+// MapViewInner.tsx<br />
+&lt;MapContainer center={center} zoom={11}&gt;<br />
+&nbsp;&nbsp;&lt;TileLayer url="https://{s}.tile.openstreetmap.org/..." /&gt;<br />
+&nbsp;&nbsp;&lt;Polyline positions={polyline}<br />
+&nbsp;&nbsp;&nbsp;&nbsp;pathOptions={{ color: "#2563eb", weight: 4 }} /&gt;<br />
+&nbsp;&nbsp;{waypoints.map(wp =&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;Marker position={[wp.lat, wp.lng]}&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Popup&gt;{wp.label}&lt;/Popup&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/Marker&gt;)}<br />
+&lt;/MapContainer&gt;
+  </div>
+</div>
+
+<!-- Slide 9: Thank You -->
+<div class="slide" id="slide-9">
+  <div class="big-emoji">🎉</div>
+  <h1>תודה רבה!</h1>
+  <br />
+  <p>שאלות?</p>
+</div>
+
+<div class="slide-number">
+  <span id="current-slide">1</span> / <span id="total-slides">9</span>
+</div>
+<div class="nav-hint">← → לניווט בין שקפים</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  let current = 0;
+
+  function showSlide(n) {
+    slides[current].classList.remove('active');
+    current = (n + slides.length) % slides.length;
+    slides[current].classList.add('active');
+    document.getElementById('current-slide').textContent = current + 1;
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+      // RTL: right = previous, left = next
+      showSlide(current + (e.key === 'ArrowLeft' ? 1 : -1));
+    }
+  });
+
+  document.getElementById('total-slides').textContent = slides.length;
+</script>
+</body>
+</html>
